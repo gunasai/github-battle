@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Popular from './components/Popular'
+import Popular from './components/Popular';
 import Battle from './components/Battle';
 class App extends React.Component {
     render() {
@@ -9,11 +9,8 @@ class App extends React.Component {
             <div className="container">
                 <Battle />
             </div>
-        )
+        );
     }
 }
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('app')
-)
+ReactDOM.render(<App />, document.getElementById('app'));
