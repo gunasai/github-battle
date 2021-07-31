@@ -11,6 +11,7 @@ import {
 import Card from './Card';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
+import Tooltip from './Tooltip';
 
 function ProfileList({ profile }) {
     return (
@@ -21,14 +22,18 @@ function ProfileList({ profile }) {
             </li>
             {profile.location && (
                 <li>
-                    <FaCompass color="rgb(144, 115, 255)" size={22} />
-                    {profile.location}
+                    <Tooltip text="User's location">
+                        <FaCompass color="rgb(144, 115, 255)" size={22} />
+                        {profile.location}
+                    </Tooltip>
                 </li>
             )}
             {profile.company && (
                 <li>
-                    <FaBriefcase color="#795548" size={22} />
-                    {profile.company}
+                    <Tooltip text="User's company">
+                        <FaBriefcase color="#795548" size={22} />
+                        {profile.company}
+                    </Tooltip>
                 </li>
             )}
             <li>
@@ -93,7 +98,7 @@ export default class Results extends React.Component {
                 <div className="grid space-around container-sm">
                     <Card
                         header={winner.score === loser.score ? 'Tie' : 'Winner'}
-                        subheader={` Score: ${winner.score.toLocaleString()}`}
+                        subheader={`Score: ${winner.score.toLocaleString()}`}
                         avatar={winner.profile.avatar_url}
                         href={winner.profile.html_url}
                         name={winner.profile.login}

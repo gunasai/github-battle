@@ -9,6 +9,8 @@ import {
 } from 'react-icons/fa';
 import Card from './Card';
 import Loading from './Loading';
+import Tooltip from './Tooltip';
+
 function LangaugesNav({ selected, onUpdateLanguage }) {
     const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
 
@@ -62,13 +64,15 @@ function ReposGrid({ repos }) {
                         >
                             <ul className="card-list">
                                 <li>
-                                    <FaUser
-                                        color="rgb(255, 191, 116)"
-                                        size={22}
-                                    />
-                                    <a href={`https://github.com/${login}`}>
-                                        {login}
-                                    </a>
+                                    <Tooltip text="Github username">
+                                        <FaUser
+                                            color="rgb(255, 191, 116)"
+                                            size={22}
+                                        />
+                                        <a href={`https://github.com/${login}`}>
+                                            {login}
+                                        </a>
+                                    </Tooltip>
                                 </li>
                                 <li>
                                     <FaStar
@@ -117,11 +121,9 @@ export default class Popular extends React.Component {
         this.updateLanguage = this.updateLanguage.bind(this);
         this.isLoading = this.isLoading.bind(this);
     }
-
     componentDidMount() {
         this.updateLanguage(this.state.selectedLanguage);
     }
-
     updateLanguage(selectedLanguage) {
         this.setState({
             selectedLanguage,
@@ -138,22 +140,20 @@ export default class Popular extends React.Component {
                         },
                     }));
                 })
-                .catch(() => {
-                    console.warn('Error fetching repos ', error);
+                .catch((error) => {
+                    console.warn('Error fetching repos: ', error);
 
                     this.setState({
-                        error: 'There was an error fetching the repositories.',
+                        error: `There was an error fetching the repositories.`,
                     });
                 });
         }
     }
-
     isLoading() {
         const { selectedLanguage, repos, error } = this.state;
 
         return !repos[selectedLanguage] && error === null;
     }
-
     render() {
         const { selectedLanguage, repos, error } = this.state;
 
